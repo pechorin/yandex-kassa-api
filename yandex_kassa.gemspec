@@ -6,12 +6,12 @@ require 'yandex_kassa/version'
 Gem::Specification.new do |spec|
   spec.name          = "yandex_kassa"
   spec.version       = YandexKassa::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
+  spec.authors       = ["Evgeniy Burdaev"]
+  spec.email         = ["inqify@gmail.com"]
 
   spec.summary       = %q{ Interaction with Yandex Kassa for Mass depositions}
   spec.description   = %q{Yandex Kassa API}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://www.github.com/creepycheese/yandex-kassa-api"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
