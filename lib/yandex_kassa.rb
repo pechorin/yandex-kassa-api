@@ -7,8 +7,8 @@ require "rest-client"
 module YandexKassa
   class << self
 
-    def build
-      Api.new(cert_file: cert_file, key_file: key_file)
+    def create
+      Api.new(url: configuration.url, cert_file: cert_file, key_file: key_file)
     end
 
     def configure(&block)
