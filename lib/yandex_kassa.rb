@@ -6,6 +6,11 @@ require "rest-client"
 
 module YandexKassa
   class << self
+
+    def build
+      Api.new(cert_file: cert_file, key_file: key_file)
+    end
+
     def configure(&block)
       block.call(configuration)
     end
@@ -20,15 +25,6 @@ module YandexKassa
       @configuration ||= Configuration.new
     end
 
-    def client
-      @client ||= RestClient::Resource.new(
-        configuration.url,
-        ssl_client_cert: cert_file,
-        ssl_client_key: key_file,
-        ssl_ca_file: deposit_cert_file,
-        verify_ssl: OpenSSL::SSL::VERIFY_NONE,
-        headers: { content_type: 'application/pkcs7-mime', content_lenght: '512' })
-    end
 
     def cert_file
       @cert_file ||= OpenSSL::X509::Certificate.new(File.read(configuration.cert))

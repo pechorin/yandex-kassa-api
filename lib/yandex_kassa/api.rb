@@ -6,7 +6,6 @@ module YandexKassa
     end
   end
 
-
   private
 
   attr_reader :cert_file, :key_file
