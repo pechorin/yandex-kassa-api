@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry'
 class YandexKassaTest < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::YandexKassa::VERSION
@@ -17,7 +16,9 @@ class YandexKassaTest < Minitest::Test
   end
 
   def test_it_initializes_client
-    assert_kind_of(RestClient::Resource, YandexKassa.client)
+    def YandexKassa.cert_file; "file_stub"; end
+    def YandexKassa.key_file; "file_stub"; end
+    assert_kind_of(YandexKassa::Api, YandexKassa.create)
   end
 
   def test_test_deposition_request_body_has_right_attributes

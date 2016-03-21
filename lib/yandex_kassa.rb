@@ -1,6 +1,7 @@
 require "yandex_kassa/version"
 require "yandex_kassa/configuration"
 require "yandex_kassa/requests"
+require "yandex_kassa/api"
 require "openssl"
 require "rest-client"
 
