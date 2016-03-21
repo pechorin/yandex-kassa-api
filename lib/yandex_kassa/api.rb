@@ -7,6 +7,12 @@ module YandexKassa
     end
   end
 
+  def test_deposition(params = {})
+    test_deposition_request = Requests::TestDeposition.new
+    params.each { |method, value| test_deposition_xml.instance_variable_set("@#{method}", value) }
+    client["testDeposition"].post(test_deposition_request.xml_request_body)
+  end
+
   private
 
   attr_reader :cert_file, :key_file, :url
