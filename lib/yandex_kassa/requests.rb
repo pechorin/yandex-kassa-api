@@ -40,11 +40,11 @@ XML
       end
 
       def extra_params
-        @extra_params
+        @payment_params
       end
 
-      def set_extra_params(params={})
-        @extra_params = "\n<paymentParams>\n#{build_params(params)}</paymentParams>"
+      def set_payment_params(params={})
+        @payment_params = "\n<paymentParams>\n#{build_params(params)}</paymentParams>"
       end
     end
   end

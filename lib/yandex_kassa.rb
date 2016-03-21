@@ -26,7 +26,7 @@ module YandexKassa
         ssl_client_cert: cert_file,
         ssl_client_key: key_file,
         ssl_ca_file: deposit_cert_file,
-        verify_ssl: OpenSSL::SSL::VERIFY_PEER,
+        verify_ssl: OpenSSL::SSL::VERIFY_NONE,
         headers: { content_type: 'application/pkcs7-mime', content_lenght: '512' })
     end
 
@@ -35,7 +35,7 @@ module YandexKassa
     end
 
     def key_file
-      @key_file ||= OpenSSL::PKey::RSA.new(File.read(configuration.key), "ewqForce1")
+      @key_file ||= OpenSSL::PKey::RSA.new(File.read(configuration.key), configuration.passphrase)
     end
 
     def deposit_cert_file
