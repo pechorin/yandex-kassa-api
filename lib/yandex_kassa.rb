@@ -27,7 +27,6 @@ module YandexKassa
       @configuration ||= Configuration.new
     end
 
-
     def cert_file
       @cert_file ||= OpenSSL::X509::Certificate.new(File.read(configuration.cert))
     end
@@ -37,7 +36,7 @@ module YandexKassa
     end
 
     def deposit_cert_file
-      @depostit_cert_file ||=OpenSSL::X509::Certificate.new(File.read(configuration.deposit))
+      @depostit_cert_file ||= OpenSSL::X509::Certificate.new(File.read(configuration.deposit))
     end
   end
 end

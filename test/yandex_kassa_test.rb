@@ -19,9 +19,11 @@ class YandexKassaTest < Minitest::Test
   def test_it_initializes_client
     def YandexKassa.cert_file; "file_stub"; end
     def YandexKassa.key_file; "file_stub"; end
+    def YandexKassa.deposit; "file_stub"; end
+    def YandexKassa.pkcs7_response_parser; DummyResponseParser.new; end
+
     assert_kind_of(YandexKassa::Api, YandexKassa.create)
   end
-
 end
 
 class DummyRestResource
