@@ -1,16 +1,12 @@
 module YandexKassa
+  include Requests
+
   class Api
     def initialize(params = {})
       @url = params.fetch(:url)
       @cert_file = params.fetch(:cert_file)
       @key_file = params.fetch(:key_file)
     end
-  end
-
-  def test_deposition(params = {})
-    test_deposition_request = Requests::TestDeposition.new
-    params.each { |method, value| test_deposition_xml.instance_variable_set("@#{method}", value) }
-    client["testDeposition"].post(test_deposition_request.xml_request_body)
   end
 
   private

@@ -1,7 +1,19 @@
+require 'pry'
 module YandexKassa
   module Requests
+    def test_deposition(params = {})
+      test_deposition_request = Requests::TestDeposition.new(params)
+      client["testDeposition"].post(test_deposition_request.xml_request_body)
+    end
+
     class Deposition
+
       attr_accessor :agent_id, :client_order_id, :request_dt, :dst_account, :amount, :currency, :contract
+
+      def initialize(params = {}, &block)
+        params.each { |method, value| instance_variable_set("@#{method}", value) }
+        block.call(self) if block_given?
+      end
 
       def request_name; end
 
@@ -21,10 +33,10 @@ contract="#{contract}"/>#{extra_params}
 XML
       end
 
-    protected
+      protected
 
       def build_params(params = {})
-          params.inject("") { |str, hash| str += "<#{hash.first}>#{hash[1]}</#{hash.first}>\n"}
+         params.inject("") { |str, hash| str += "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
       end
     end
 
