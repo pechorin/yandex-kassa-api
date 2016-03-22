@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Evgeniy Burdaev"]
   spec.email         = ["inqify@gmail.com"]
 
-  spec.summary       = %q{ Interaction with Yandex Kassa for Mass depositions}
+  spec.summary       = %q{Interaction with Yandex Kassa for Mass depositions}
   spec.description   = %q{Yandex Kassa API}
   spec.homepage      = "https://www.github.com/creepycheese/yandex-kassa-api"
   spec.license       = "MIT"
