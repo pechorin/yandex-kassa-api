@@ -3,14 +3,11 @@ module YandexKassa
 
   class Api
     def initialize(params = {})
+      @response_parser = params.fetch(:response_parser)
       @url = params.fetch(:url)
       @cert_file = params.fetch(:cert_file)
       @key_file = params.fetch(:key_file)
     end
-  end
-
-  def set_response_parser(response_parser)
-    @response_parser = response_parser
   end
 
   private
