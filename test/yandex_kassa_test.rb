@@ -32,11 +32,24 @@ class DummyRestResource
   end
 end
 
+class DummyRequestSigner
+  def sign(body)
+    "signed_request"
+  end
+end
+
 class DummyApi
   include YandexKassa::Requests
 
   def client
     Hash.new { DummyRestResource.new }
+  end
+
+  def post_signed_xml_request(xml_request_body)
+  end
+
+  def request_signer
+    @request_signer = DummyRequestSigner.new
   end
 
   def response_parser

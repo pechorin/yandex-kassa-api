@@ -10,8 +10,11 @@ module YandexKassa
   class << self
 
     def create
-      Api.new(url: configuration.url, cert_file: cert_file,
-                key_file: key_file, response_parser: pkcs7_response_parser)
+      Api.new(url: configuration.url,
+              cert_file: cert_file,
+              key_file: key_file,
+              response_parser: pkcs7_response_parser,
+              request_signer: request_signer)
     end
 
     def configure(&block)
@@ -25,6 +28,10 @@ module YandexKassa
 
     def configuration
       @configuration ||= Configuration.new
+    end
+
+    def request_signer
+      @request_signer ||= RequestSigner.new(cert_file: cert_file, key_file: key)
     end
 
     def cert_file

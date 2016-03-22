@@ -2,17 +2,12 @@ module YandexKassa
   module Requests
     def test_deposition(params = {}, &block)
       test_deposition_request = Requests::TestDeposition.new(params, &block)
-      post_request(test_deposition_request)
+      post_signed_xml_request(test_deposition_request)
     end
 
     def make_deposition(params = {}, &block)
       make_deposition_request = Requests::MakeDeposition.new(params, &block)
-      post_request(make_deposition_request)
-    end
-
-    def post_request(xml_request)
-      response = client[xml_request.request_path].post(xml_request.xml_request_body)
-      response_parser.parse(response)
+      post_signed_xml_request(make_deposition_request)
     end
 
     class Deposition
