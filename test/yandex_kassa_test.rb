@@ -60,7 +60,7 @@ requestDT="2011-07-01T20:38:00.000Z"
 dstAccount="410011234567"
 amount="10.00"
 currency="643"
-contract="contract"/>
+contract="contract">
 </testDepositionRequest>
 XML
     test_deposition_xml = YandexKassa::Requests::TestDeposition.new do |request|
@@ -85,7 +85,7 @@ requestDT="2011-07-01T20:38:00.000Z"
 dstAccount="410011234567"
 amount="10.00"
 currency="643"
-contract="contract"/>
+contract="contract">
 <paymentParams>
 <smsPhoneNumber>123123</smsPhoneNumber>
 <pdr_city>City</pdr_city>

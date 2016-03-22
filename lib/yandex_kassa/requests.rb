@@ -39,7 +39,7 @@ requestDT="#{request_dt}"
 dstAccount="#{dst_account}"
 amount="#{amount}"
 currency="#{currency}"
-contract="#{contract}"/>#{extra_params}
+contract="#{contract}">#{extra_params}
 </#{request_name}>
 XML
       end
