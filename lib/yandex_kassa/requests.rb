@@ -1,28 +1,32 @@
-require 'pry'
 module YandexKassa
   module Requests
-    def test_deposition(params = {})
-      test_deposition_request = Requests::TestDeposition.new(params)
-      client["testDeposition"].post(test_deposition_request.xml_request_body)
+    def test_deposition(params = {}, &block)
+      test_deposition_request = Requests::TestDeposition.new(params, &block)
+      post_request(test_deposition_request)
     end
 
-    def make_deposition(params = {})
-      make_deposition_request = Requests::TestDeposition.new(params)
-      client["makeDeposition"].post(test_deposition_request.xml_request_body)
+    def make_deposition(params = {}, &block)
+      make_deposition_request = Requests::MakeDeposition.new(params, &block)
+      post_request(make_deposition_request)
+    end
+
+    def post_request(xml_request)
+      response = client[xml_request.request_path].post(xml_request.xml_request_body)
+      response_parser.parse(response)
     end
 
     class Deposition
 
-      REQUIRED_ATTRS = [:agent_id, :client_order_id, :request_dt, :dst_account, :amount, :currency, :contract ]
+      attr_accessor :agent_id, :client_order_id, :request_dt, :dst_account, :amount, :currency, :contract
 
       def initialize(params = {}, &block)
         params.each { |method, value| instance_variable_set("@#{method}", value) }
         block.call(self) if block_given?
       end
 
-      private
-
       def request_name; end
+
+      def resource_path; end
 
       def extra_params; end
 
@@ -39,16 +43,15 @@ contract="#{contract}"/>#{extra_params}
 </#{request_name}>
 XML
       end
-
-
-      def build_params(params = {})
-         params.inject("") { |str, hash| str += "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
-      end
     end
 
     class TestDeposition < Deposition
       def request_name
         'testDepositionRequest'
+      end
+
+      def request_path
+        'testDeposition'
       end
     end
 
@@ -57,12 +60,17 @@ XML
         'makeDepositionRequest'
       end
 
+      def request_path
+        'makeDeposition'
+      end
+
       def extra_params
         @payment_params
       end
 
       def set_payment_params(params={})
-        @payment_params = "\n<paymentParams>\n#{build_params(params)}</paymentParams>"
+        params = params.inject("") { |str, hash| str += "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
+        @payment_params = "\n<paymentParams>\n#{params}</paymentParams>"
       end
     end
   end

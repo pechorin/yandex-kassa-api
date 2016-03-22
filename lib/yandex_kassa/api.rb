@@ -9,9 +9,13 @@ module YandexKassa
     end
   end
 
+  def set_response_parser(response_parser)
+    @response_parser = response_parser
+  end
+
   private
 
-  attr_reader :cert_file, :key_file, :url
+  attr_reader :cert_file, :key_file, :url, :response_parser
 
   def client
     @client ||= RestClient::Resource.new(

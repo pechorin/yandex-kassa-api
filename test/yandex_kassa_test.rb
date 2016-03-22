@@ -36,6 +36,16 @@ class DummyApi
   def client
     Hash.new { DummyRestResource.new }
   end
+
+  def response_parser
+    @response_parser = DummyResponseParser.new
+  end
+end
+
+class DummyResponseParser
+  def parse(arg)
+    arg
+  end
 end
 
 class RequestsTest < Minitest::Test
@@ -96,5 +106,13 @@ XML
 
   def test_it_allows_to_send_test_deposition_request
     assert_equal DummyApi.new.test_deposition, DummyRestResource.new.post("body")
+  end
+
+  def test_it_allow_to_send_make_deposition_request
+    request = DummyApi.new.make_deposition do |request|
+      request.set_payment_params
+    end
+
+    assert_equal request, DummyRestResource.new.post("body")
   end
 end
