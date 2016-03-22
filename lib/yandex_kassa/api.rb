@@ -1,7 +1,7 @@
 module YandexKassa
-  include Requests
-
   class Api
+    include Requests
+
     def initialize(params = {})
       @response_parser = params.fetch(:response_parser)
       @url = params.fetch(:url)
