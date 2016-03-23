@@ -8,13 +8,12 @@ require "rest-client"
 
 module YandexKassa
   class << self
-
     def create
       Api.new(url: configuration.url,
-              cert_file: cert_file,
-              key_file: key_file,
-              response_parser: pkcs7_response_parser,
-              request_signer: request_signer)
+              cert_file: configuration.cert_file,
+              key_file: configuration.key_file,
+              response_parser: configuration.pkcs7_response_parser,
+              request_signer: configuration.request_signer)
     end
 
     def configure(&block)
@@ -32,18 +31,6 @@ module YandexKassa
 
     def request_signer
       @request_signer ||= RequestSigner.new(cert_file: cert_file, key_file: key)
-    end
-
-    def cert_file
-      @cert_file ||= OpenSSL::X509::Certificate.new(File.read(configuration.cert))
-    end
-
-    def key_file
-      @key_file ||= OpenSSL::PKey::RSA.new(File.read(configuration.key), configuration.passphrase)
-    end
-
-    def deposit_cert_file
-      @depostit_cert_file ||= OpenSSL::X509::Certificate.new(File.read(configuration.deposit))
     end
   end
 end
