@@ -21,6 +21,10 @@ module YandexKassa
       block.call(configuration)
     end
 
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
     def pkcs7_response_parser
       @pkcs7_response_parser ||= SignedResponseParser.new(
         deposit_cert_file: configuration.deposit_cert_file,
