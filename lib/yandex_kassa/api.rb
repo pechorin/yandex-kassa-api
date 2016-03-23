@@ -12,7 +12,7 @@ module YandexKassa
 
     private
 
-    attr_reader :cert_file, :key_file, :url, :response_parseri, :request_signer
+    attr_reader :cert_file, :key_file, :url, :response_parser, :request_signer
 
     def post_signed_xml_request(yandex_kassa_request)
       signed_data = request_signer.sign(yandex_kassa_request.xml_request_body)
