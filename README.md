@@ -45,6 +45,8 @@ test_deposition_params = {
 }
 
 data = api.test_deposition(test_deposition_params)
+# decrypted xml response from api server
+# => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testDepositionResponse clientOrderId=\"1\" status=\"3\" error=\"41\" processedDT=\"2016-03-23T12:52:53.087+03:00\" identification=\"anonymous\" />\r\n"
 #or equally
 data = api.test_deposition do |request|
     request.dst_account = 410011234567
