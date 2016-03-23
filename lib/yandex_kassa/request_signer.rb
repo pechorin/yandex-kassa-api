@@ -6,7 +6,7 @@ module YandexKassa
     end
 
     def sign(raw_xml_body)
-      OpenSSL::PKCS7.sign(cert_file, key_file, raw_xml_body, [], PKCS7::NOCERTS).to_pem
+      OpenSSL::PKCS7.sign(cert_file, key_file, raw_xml_body, [], OpenSSL::PKCS7::NOCERTS).to_pem
     end
 
     private
