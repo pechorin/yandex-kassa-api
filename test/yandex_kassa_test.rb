@@ -16,7 +16,7 @@ class YandexKassaTest < Minitest::Test
     assert_equal YandexKassa.configuration.url, 'test.url:9090'
   end
 
-  class YandexKassa::DummyConfiguration
+  class DummyConfiguration
     def cert_file; "file_stub"; end
     def key_file; "file_stub"; end
     def deposit_cert_file; "file_stub"; end
@@ -25,7 +25,7 @@ class YandexKassaTest < Minitest::Test
 
   def test_it_initializes_client
     def YandexKassa.pkcs7_response_parser; DummyResponseParser.new; end
-    def YandexKassa.configuration; YandexKassa::DummyConfiguration.new; end
+    def YandexKassa.configuration; DummyConfiguration.new; end
     def YandexKassa.request_signer; DummyRequestSigner.new; end
 
     assert_kind_of(YandexKassa::Api, YandexKassa.create)
@@ -124,6 +124,34 @@ XML
     end
 
     assert_equal expected, make_deposition.xml_request_body
+  end
+
+  def test_it_forms_request_body_correctly_from_hash_params_for_make_deposition
+    payment_params = { "smsPhoneNumber" => 123123, "pdr_city" => "City" }
+    make_deposition_params = {
+      agent_id: 123, client_order_id: 12345, request_dt: "2011-07-01T20:38:00.000Z",
+      amount: "10.00", currency: "643", contract: "contract", dst_account: "410011234567",
+      payment_params: payment_params
+    }
+
+    make_deposition_request = YandexKassa::Requests::MakeDeposition.new(make_deposition_params).xml_request_body
+    expected = <<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<makeDepositionRequest agentId="123"
+clientOrderId="12345"
+requestDT="2011-07-01T20:38:00.000Z"
+dstAccount="410011234567"
+amount="10.00"
+currency="643"
+contract="contract">
+<paymentParams>
+<smsPhoneNumber>123123</smsPhoneNumber>
+<pdr_city>City</pdr_city>
+</paymentParams>
+</makeDepositionRequest>
+XML
+
+    assert_equal expected, make_deposition_request
   end
 
   def test_it_allows_to_send_test_deposition_request
