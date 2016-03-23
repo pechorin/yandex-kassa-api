@@ -12,8 +12,8 @@ module YandexKassa
       Api.new(url: configuration.url,
               cert_file: configuration.cert_file,
               key_file: configuration.key_file,
-              response_parser: configuration.pkcs7_response_parser,
-              request_signer: configuration.request_signer)
+              response_parser: pkcs7_response_parser,
+              request_signer: request_signer)
     end
 
     def configure(&block)

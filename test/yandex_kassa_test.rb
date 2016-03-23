@@ -16,11 +16,17 @@ class YandexKassaTest < Minitest::Test
     assert_equal YandexKassa.configuration.url, 'test.url:9090'
   end
 
+  class YandexKassa::DummyConfiguration
+    def cert_file; "file_stub"; end
+    def key_file; "file_stub"; end
+    def deposit_cert_file; "file_stub"; end
+    def url; "url_stub"; end
+  end
+
   def test_it_initializes_client
-    def YandexKassa.cert_file; "file_stub"; end
-    def YandexKassa.key_file; "file_stub"; end
-    def YandexKassa.deposit; "file_stub"; end
     def YandexKassa.pkcs7_response_parser; DummyResponseParser.new; end
+    def YandexKassa.configuration; YandexKassa::DummyConfiguration.new; end
+    def YandexKassa.request_signer; DummyRequestSigner.new; end
 
     assert_kind_of(YandexKassa::Api, YandexKassa.create)
   end
@@ -46,6 +52,7 @@ class DummyApi
   end
 
   def post_signed_xml_request(xml_request_body)
+    client["route"].post(xml_request_body)
   end
 
   def request_signer
