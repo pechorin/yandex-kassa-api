@@ -22,8 +22,9 @@ module YandexKassa
     end
 
     def pkcs7_response_parser
-      @pkcs7_response_parser ||= SignedResponseParser.new(deposit_cert_file: deposit_cert_file,
-                                                                           cert_file: cert_file)
+      @pkcs7_response_parser ||= SignedResponseParser.new(
+        deposit_cert_file: configuration.deposit_cert_file,
+        cert_file: configuration.cert_file)
     end
 
     def configuration
