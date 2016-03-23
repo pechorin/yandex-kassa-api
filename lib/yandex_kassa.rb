@@ -27,12 +27,8 @@ module YandexKassa
         cert_file: configuration.cert_file)
     end
 
-    def configuration
-      @configuration ||= Configuration.new
-    end
-
     def request_signer
-      @request_signer ||= RequestSigner.new(cert_file: cert_file, key_file: key)
+      @request_signer ||= RequestSigner.new(cert_file: configuration.cert_file, key_file: configuration.key_file)
     end
   end
 end
