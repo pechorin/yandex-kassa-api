@@ -122,6 +122,27 @@ api.balance(balance_params)
 # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<balanceResponse clientOrderId=\"1\" status=\"0\" processedDT=\"2016-03-24T14:15:43.484+03:00\" balance=\"-8320.00\" />\r\n"
 ```
 
+Getting [card_synonym](https://tech.yandex.ru/money/doc/payment-solution/payout/bank-card-synonym-docpage/):
+
+```ruby
+url = https://demo-scrat.yamoney.ru/gates/card/storeCard
+error_url = https://example.com/error_url
+success_url = https://example.com/success_url
+demo_card_number = "4444444444444448"
+
+store_card = StoreCard.new(
+  url: url,
+  error_url: error_url,
+  sucess_url: success_url,
+  response_format: "json",
+  demo_card_number = "4444444444444448"
+)
+
+response = store_card.request
+
+#=> "{\"storeCard\":{\"reason\":\"success\",\"skr_destinationCardCountryCode\":\"616\",\"skr_destinationCardSynonim\":\"mob64asbX5okWsURXB8QoYwYSwwZ.SC.201603\",\"skr_destinationCardType\":\"Visa\",\"skr_destinationCardPanmask\":\"444444******4448\"}}"
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

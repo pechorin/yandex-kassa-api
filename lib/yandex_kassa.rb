@@ -4,6 +4,7 @@ require "yandex_kassa/requests"
 require "yandex_kassa/api"
 require "yandex_kassa/signed_response_parser"
 require "yandex_kassa/request_signer"
+require "yandex_kassa/store_card"
 require "openssl"
 require "rest-client"
 
