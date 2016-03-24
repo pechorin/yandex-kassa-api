@@ -92,8 +92,7 @@ XML
 <?xml version="1.0" encoding="UTF-8"?>
 <#{request_name} agentId="#{agent_id}"
 clientOrderId="#{client_order_id}"
-requestDT="#{request_dt}"
-</#{request_name}>
+requestDT="#{request_dt}"/>
 XML
       end
     end

@@ -17,6 +17,7 @@ class YandexKassaTest < Minitest::Test
   end
 
   class DummyConfiguration
+    attr_accessor :cert, :key, :deposit, :url, :deposit
     def cert_file; "file_stub"; end
     def key_file; "file_stub"; end
     def deposit_cert_file; "file_stub"; end
@@ -124,6 +125,18 @@ XML
     end
 
     assert_equal expected, make_deposition.xml_request_body
+  end
+
+  def test_balance_requst_body_equals_correct_partial
+    expected = <<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<balanceRequest agentId="123"
+clientOrderId="12345"
+requestDT="2011-07-01T20:38:00.000Z"/>
+XML
+
+    balance = YandexKassa::Requests::Balance.new(agent_id: 123, client_order_id: 12345, request_dt: "2011-07-01T20:38:00.000Z")
+    assert_equal expected, balance.xml_request_body
   end
 
   def test_it_forms_request_body_correctly_from_hash_params_for_make_deposition
