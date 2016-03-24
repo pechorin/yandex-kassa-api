@@ -143,6 +143,13 @@ response = store_card.request
 # => "{\"storeCard\":{\"reason\":\"success\",\"skr_destinationCardCountryCode\":\"616\",\"skr_destinationCardSynonim\":\"mob64asbX5okWsURXB8QoYwYSwwZ.SC.201603\",\"skr_destinationCardType\":\"Visa\",\"skr_destinationCardPanmask\":\"444444******4448\"}}"
 ```
 
+##Integration
+Following gists may be useful:
+
+[Yandex Kassa Card payment test](https://gist.github.com/creepycheese/f3b0f70d21dc7eac6d9a)
+
+[Yandex Kassa different accounts test](https://gist.github.com/creepycheese/f94c9e2a47b16f7303ba)
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
