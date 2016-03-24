@@ -38,6 +38,7 @@ YandexKassa.configure do |config|
   config.passphrase = "passphrase"
 end
 ```
+Doc for [Deposition requests](https://tech.yandex.ru/money/doc/payment-solution/payout/payments-docpage/)
 
 **testDeposition:**
 
@@ -114,7 +115,7 @@ data = api.make_deposition do |request|
 # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<makeDepositionResponse clientOrderId=\"1\" status=\"3\" error=\"41\" processedDT=\"2016-03-23T12:52:53.087+03:00\" identification=\"anonymous\" />\r\n"
 ```
 
-**Balance:**
+[**Balance:**](https://tech.yandex.ru/money/doc/payment-solution/payout/balance-request-docpage/)
 
 ```ruby
 balance_params = { dst_account: "410011234567", agent_id: "123123",client_order_id: 1 }
@@ -125,22 +126,21 @@ api.balance(balance_params)
 Getting [card_synonym](https://tech.yandex.ru/money/doc/payment-solution/payout/bank-card-synonym-docpage/):
 
 ```ruby
-url = https://demo-scrat.yamoney.ru/gates/card/storeCard
-error_url = https://example.com/error_url
-success_url = https://example.com/success_url
+url = "https://demo-scrat.yamoney.ru/gates/card/storeCard"
+error_url = "https://example.com/error_url"
+success_url = "https://example.com/success_url"
 demo_card_number = "4444444444444448"
 
-store_card = StoreCard.new(
+store_card = YandexKassa::StoreCard.new(
   url: url,
   error_url: error_url,
   sucess_url: success_url,
   response_format: "json",
-  demo_card_number = "4444444444444448"
+  destination_card_number: demo_card_number
 )
 
 response = store_card.request
-
-#=> "{\"storeCard\":{\"reason\":\"success\",\"skr_destinationCardCountryCode\":\"616\",\"skr_destinationCardSynonim\":\"mob64asbX5okWsURXB8QoYwYSwwZ.SC.201603\",\"skr_destinationCardType\":\"Visa\",\"skr_destinationCardPanmask\":\"444444******4448\"}}"
+# => "{\"storeCard\":{\"reason\":\"success\",\"skr_destinationCardCountryCode\":\"616\",\"skr_destinationCardSynonim\":\"mob64asbX5okWsURXB8QoYwYSwwZ.SC.201603\",\"skr_destinationCardType\":\"Visa\",\"skr_destinationCardPanmask\":\"444444******4448\"}}"
 ```
 
 ## License
