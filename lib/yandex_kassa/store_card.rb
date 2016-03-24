@@ -14,7 +14,7 @@ module YandexKassa
 
     private
 
-    attr_reader :error_url, :success_url, :response_format, :destination_card_number
+    attr_reader :error_url, :success_url, :response_format, :destination_card_number, :url
 
     def request_params
       {
