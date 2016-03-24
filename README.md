@@ -134,7 +134,7 @@ demo_card_number = "4444444444444448"
 store_card = YandexKassa::StoreCard.new(
   url: url,
   error_url: error_url,
-  sucess_url: success_url,
+  success_url: success_url,
   response_format: "json",
   destination_card_number: demo_card_number
 )
