@@ -5,7 +5,7 @@ module YandexKassa
       @error_url = params.fetch(:error_url)
       @success_url = params.fetch(:success_url)
       @response_format = params.fetch(:response_format)
-      @card_number = params.fetch(:destination_card_number)
+      @destination_card_number = params.fetch(:destination_card_number)
     end
 
     def request
