@@ -1,13 +1,18 @@
 module YandexKassa
   module Requests
     def test_deposition(params = {}, &block)
-      test_deposition_request = Requests::TestDeposition.new(params, &block)
+      test_deposition_request = TestDeposition.new(params, &block)
       post_signed_xml_request(test_deposition_request)
     end
 
     def make_deposition(params = {}, &block)
-      make_deposition_request = Requests::MakeDeposition.new(params, &block)
+      make_deposition_request = MakeDeposition.new(params, &block)
       post_signed_xml_request(make_deposition_request)
+    end
+
+    def balance(parmas = {}, &block)
+      balance_request = Balance.new(parmas, &block)
+      post_signed_xml_request(balance_request)
     end
 
     class Deposition
@@ -21,7 +26,7 @@ module YandexKassa
 
       def request_name; end
 
-      def resource_path; end
+      def request_path; end
 
       def extra_params; end
 
@@ -70,6 +75,26 @@ XML
       def set_payment_params(params = payment_params)
         params = params.inject("") { |str, hash| str += "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
         @payment_params_body = "\n<paymentParams>\n#{params}</paymentParams>"
+      end
+    end
+
+    class Balance < Deposition
+      def request_name
+        'balanceRequest'
+      end
+
+      def request_path
+        'balance'
+      end
+
+      def xml_request_body
+<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<#{request_name} agentId="#{agent_id}"
+clientOrderId="#{client_order_id}"
+requestDT="#{request_dt}"
+</#{request_name}>
+XML
       end
     end
   end
