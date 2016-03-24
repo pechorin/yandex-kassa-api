@@ -39,6 +39,8 @@ YandexKassa.configure do |config|
 end
 ```
 
+**testDeposition:**
+
 ```ruby
 #enable std loggin for Rest client
 RestClient.log = 'stdout'
@@ -66,6 +68,58 @@ data = api.test_deposition do |request|
     request.request_dt = Time.now.iso8601
   end
 # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testDepositionResponse clientOrderId=\"1\" status=\"3\" error=\"41\" processedDT=\"2016-03-23T12:52:53.087+03:00\" identification=\"anonymous\" />\r\n"
+```
+**makeDeposition:**
+
+```ruby
+#send make deposition request
+payment_params = { "skr_destinationCardSynonim" => "b0af887ae9ad01fe01ca65df7cff19a7b5fcbf9b_scn",
+                   "pdr_firstName" => "Владимир",
+                   "pdr_middleName" => "Владимирович",
+                   "pdr_docNumber" => "4002109067",
+                   "pdr_postcode" => "194044",
+                   "pdr_country" => "643",
+                   "pdr_city" => "Москва",
+                   "pdr_adress" => "ул. Какая-то",
+                   "pdr_birthDate" => "24.05.1987",
+                   "pdr_birthplace" => "Новосибирск",
+                   "pdr_docIssueYear" => "1999",
+                   "pdr_docIssueMonth" => "7",
+                   "pdr_docIssueDay" => "30",
+                   "pdr_docIssuedBy" => "ТП",
+                   "pof_offerAccepted" => 1,
+                   "smsPhoneNumber" => "79653457676"
+                  }
+
+make_deposition_params = {
+  dst_account: "410011234567", amount: "10.00", currency: 10643,
+  agent_id: "123123", contract: "Fun stuff", client_order_id: 1, request_dt: Time.now.iso8601,
+  payment_params: payment_params
+}
+
+data = api.make_deposition(make_deposition_params)
+# => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<makeDepositionResponse clientOrderId=\"1\" status=\"3\" error=\"41\" processedDT=\"2016-03-23T12:52:53.087+03:00\" identification=\"anonymous\" />\r\n"
+
+#or equally
+data = api.make_deposition do |request|
+    request.dst_account = 410011234567
+    request.amount = 10.00
+    request.currency = 10643
+    request.contract = "Fun stuff"
+    request.dst_account = 410011234567
+    request.client_order_id = 1
+    request.request_dt = Time.now.iso8601
+    set_payment_params payment_params
+  end
+# => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<makeDepositionResponse clientOrderId=\"1\" status=\"3\" error=\"41\" processedDT=\"2016-03-23T12:52:53.087+03:00\" identification=\"anonymous\" />\r\n"
+```
+
+**Balance:**
+
+```ruby
+balance_params = { dst_account: "410011234567", agent_id: "123123",client_order_id: 1 }
+api.balance(balance_params)
+# => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<balanceResponse clientOrderId=\"1\" status=\"0\" processedDT=\"2016-03-24T14:15:43.484+03:00\" balance=\"-8320.00\" />\r\n"
 ```
 
 ## License
