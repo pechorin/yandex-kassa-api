@@ -21,7 +21,7 @@ class YandexKassaTest < Minitest::Test
     def cert_file; "file_stub"; end
     def key_file; "file_stub"; end
     def deposit_cert_file; "file_stub"; end
-    def url; "url_stub"; end
+    def url; "test.url:9090"; end
   end
 
   def test_it_initializes_client
