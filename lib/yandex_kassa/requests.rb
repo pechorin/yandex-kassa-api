@@ -73,7 +73,7 @@ XML
       end
 
       def set_payment_params(params = payment_params)
-        params = params.inject("") { |str, hash| str += "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
+        params = params.inject("") { |str, hash| str + "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
         @payment_params_body = "\n<paymentParams>\n#{params}</paymentParams>"
       end
     end
