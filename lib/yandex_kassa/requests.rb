@@ -53,6 +53,19 @@ XML
       def request_path
         'testDeposition'
       end
+      
+      def extra_params
+        @payment_params_body || set_payment_params
+      end
+
+      def payment_params
+        @payment_params ||= {}
+      end
+
+      def set_payment_params(params = payment_params)
+        params = params.inject("") { |str, hash| str + "<#{hash[0]}>#{hash[1]}</#{hash[0]}>\n"}
+        @payment_params_body = "\n<paymentParams>\n#{params}</paymentParams>"
+      end
     end
 
     class MakeDeposition < Deposition
